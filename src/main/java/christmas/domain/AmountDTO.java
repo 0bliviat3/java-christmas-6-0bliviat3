@@ -8,6 +8,24 @@ public class AmountDTO {
     private int specialDiscount;
     private int giftDiscount;
     private int amount;
+    private boolean isWeekend;
+    private boolean isMinAmount;
+
+    public boolean isWeekend() {
+        return isWeekend;
+    }
+
+    public void setWeekend(boolean weekend) {
+        isWeekend = weekend;
+    }
+
+    public boolean isMinAmount() {
+        return isMinAmount;
+    }
+
+    public void setMinAmount(boolean minAmount) {
+        isMinAmount = minAmount;
+    }
 
     public int getChristmasDiscount() {
         return christmasDiscount;
