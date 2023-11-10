@@ -1,12 +1,12 @@
 package christmas.domain;
 
-public class DiscountAmount {
+public class Day {
 
     private final int day;
 
     // TODO: 상수처리 할것
 
-    public DiscountAmount(final int day) {
+    public Day(final int day) {
         validateDay(day);
         this.day = day;
     }
