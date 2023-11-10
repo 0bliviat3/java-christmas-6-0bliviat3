@@ -3,8 +3,11 @@ package christmas.domain;
 import static christmas.domain.constants.DiscountConstants.*;
 
 import java.text.DecimalFormat;
+import java.util.function.Supplier;
 
 public class BillBuilder {
+
+    // TODO: 상수처리 필요
 
     private static final String EMPTY = "";
     private static final String CHAMPAGNE = "샴페인 1개\n";
@@ -17,6 +20,15 @@ public class BillBuilder {
         this.amountDTO = amountDTO;
     }
 
+
+    private String buildBenefit(
+            Supplier<Integer> calculator, String discountConstant) {
+        int calculateResult = calculator.get();
+        if (calculateResult == 0) {
+            return EMPTY;
+        }
+        return String.format(discountConstant, amountFormat.format(calculateResult));
+    }
     private int calculateBenefitsAmount() {
         int sum = amountDTO.getChristmasDiscount() +
                 amountDTO.getSpecialDiscount() +
