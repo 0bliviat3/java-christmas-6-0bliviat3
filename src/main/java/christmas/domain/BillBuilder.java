@@ -20,6 +20,43 @@ public class BillBuilder {
         this.amountDTO = amountDTO;
     }
 
+    public String makeBill() {
+        StringBuilder bill = new StringBuilder();
+        boolean flag = amountDTO.isMinAmount();
+        bill.append(buildAmount(amountDTO.getAmount(), BEFORE_DISCOUNT.getMessage()))
+                .append(GIFT_MENU.getMessage())
+                .append(buildByFlag(this::buildGiftMenu, flag, NONE.getMessage()))
+                .append(BENEFITS_DETAILS.getMessage())
+                .append(buildByFlag(this::buildBenefits, flag, NONE.getMessage()))
+                .append(buildAmount(calculateBenefitsAmount(), BENEFITS_AMOUNT.getMessage()))
+                .append(buildBenefit(this::calculatePay, AFTER_DISCOUNT.getMessage()));
+        return bill.toString();
+    }
+
+    private String buildAmount(int amount, String constant) {
+        return String.format(constant, amountFormat.format(amount));
+    }
+
+    private String buildByFlag(
+            Supplier<String> builder, boolean flag, String noneConstant) {
+        if (flag) {
+            return builder.get();
+        }
+        return noneConstant;
+    }
+
+    private String buildGiftMenu() {
+        return CHAMPAGNE;
+    }
+
+    private String buildBenefits() {
+        return String.join(
+                EMPTY,
+                buildBenefit(amountDTO::getChristmasDiscount, CHRISTMAS.getMessage()),
+                buildWeekBenefit(),
+                buildBenefit(amountDTO::getSpecialDiscount, SPECIAL.getMessage()),
+                buildBenefit(amountDTO::getGiftDiscount, GIFT.getMessage()));
+    }
 
     private String buildBenefit(
             Supplier<Integer> calculator, String discountConstant) {
@@ -29,6 +66,14 @@ public class BillBuilder {
         }
         return String.format(discountConstant, amountFormat.format(calculateResult));
     }
+
+    private String buildWeekBenefit() {
+        if (amountDTO.isWeekend()) {
+            return buildBenefit(amountDTO::getWeekendDiscount, WEEKEND.getMessage());
+        }
+        return buildBenefit(amountDTO::getWeekdayDiscount, WEEKDAY.getMessage());
+    }
+
     private int calculateBenefitsAmount() {
         int sum = amountDTO.getChristmasDiscount() +
                 amountDTO.getSpecialDiscount() +
