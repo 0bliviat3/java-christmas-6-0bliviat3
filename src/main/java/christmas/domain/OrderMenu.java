@@ -32,6 +32,16 @@ public class OrderMenu {
         return sum;
     }
 
+    public int getCategoryCount(int category) {
+        int count = 0;
+        for(FoodConstants foodConstants : order.keySet()) {
+            if(foodConstants.getCategory() == category) {
+                count += order.get(foodConstants);
+            }
+        }
+        return count;
+    }
+
     @Override
     public String toString() {
        StringBuilder orderBuilder = new StringBuilder();
