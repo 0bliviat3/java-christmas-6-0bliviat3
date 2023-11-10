@@ -38,4 +38,12 @@ public class OrderMenuTest {
                 Map.of(STEAK, 1, RIB, 1, CAKE, 2, COKE, 1)).getAmount())
                 .isEqualTo(142000);
     }
+
+    @DisplayName("카테고리에 해당하는 주문의 개수를 반환한다.")
+    @Test
+    void createOrderCategoryCount() {
+        assertThat(new OrderMenu(
+                Map.of(STEAK, 1, RIB, 1, CAKE, 2, COKE, 1)).getCategoryCount(2))
+                .isEqualTo(2);
+    }
 }
