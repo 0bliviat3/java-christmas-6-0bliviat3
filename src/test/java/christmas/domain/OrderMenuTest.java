@@ -9,6 +9,7 @@ import java.util.Map;
 
 import christmas.domain.constants.FoodConstants;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 public class OrderMenuTest {
@@ -28,5 +29,13 @@ public class OrderMenuTest {
     void createOrderByOverCount() {
         assertThatThrownBy(() -> new OrderMenu(Map.of(TAPAS, 21)))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @DisplayName("주문에 따른 주문총액을 반환한다.")
+    @Test
+    void createOrderAmount() {
+        assertThat(new OrderMenu(
+                Map.of(STEAK, 1, RIB, 1, CAKE, 2, COKE, 1)).getAmount())
+                .isEqualTo(142000);
     }
 }
