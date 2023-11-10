@@ -10,6 +10,7 @@ public class OrderMenu {
     private final Map<FoodConstants, Integer> order;
 
     public OrderMenu(final Map<FoodConstants, Integer> order) {
+        validateOrderCount(order);
         this.order = order;
     }
 
