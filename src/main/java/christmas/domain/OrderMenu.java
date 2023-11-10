@@ -14,7 +14,7 @@ public class OrderMenu {
         this.order = order;
     }
 
-    private void validateOrderCount(final Map<FoodConstants, Integer> order) {
+    private void validateOrderCount(final Map<FoodConstants, Integer> order) { // TODO: 상수처리 및 예외 별도관리 고민
         int sum = 0;
         for(int count : order.values()) {
             sum += count;
@@ -22,6 +22,14 @@ public class OrderMenu {
                 throw new IllegalArgumentException("[ERROR] 메뉴는 최대 20개까지만 주문할 수 있습니다.");
             }
         }
+    }
+
+    public int getAmount() {
+        int sum = 0;
+        for(FoodConstants foodConstants : order.keySet()) {
+            sum += foodConstants.getAmount() * order.get(foodConstants);
+        }
+        return sum;
     }
 
     @Override
