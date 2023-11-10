@@ -21,6 +21,10 @@ public class Day {
         return day <= 25;
     }
 
+    public int getChristmasDiscount() {
+        return 1000 + (day - 1) * 100;
+    }
+
     private int modDay() {
         return day % 7;
     }
