@@ -27,4 +27,8 @@ public class InputException {
     public static IllegalArgumentException createException(ExceptionConstants exceptionConstants) {
         return new IllegalArgumentException(exceptionConstants.getMessage());
     }
+
+    public static void printErrorMessage(IllegalArgumentException e) {
+        System.out.println(e.getMessage());
+    }
 }
