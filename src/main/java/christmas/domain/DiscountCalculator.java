@@ -4,12 +4,15 @@ public class DiscountCalculator {
 
     // TODO: 상수 처리 필요
 
-    private static final String MESSAGE = "<주문 메뉴>\n";
-    private final Day day;
-    private final OrderMenu orderMenu;
+    private static final String MESSAGE = "\n<주문 메뉴>\n";
+    private Day day;
+    private OrderMenu orderMenu;
 
-    public DiscountCalculator(final Day day, final OrderMenu orderMenu) {
+    public void setDay(Day day) {
         this.day = day;
+    }
+
+    public void setOrderMenu(OrderMenu orderMenu) {
         this.orderMenu = orderMenu;
     }
 
