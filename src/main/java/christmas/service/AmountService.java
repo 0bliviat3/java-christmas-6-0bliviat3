@@ -20,6 +20,11 @@ public class AmountService {
     }
 
 
+    public String findBill() {
+        addAmount();
+        return billBuilder.makeBill();
+    }
+
     private void addAmount() {
         amountDTO.setAmount(discountCalculator.calculateBeforeDiscount());
         amountDTO.setChristmasDiscount(discountCalculator.calculateChristmas());
