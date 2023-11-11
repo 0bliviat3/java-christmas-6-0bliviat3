@@ -1,8 +1,12 @@
 package christmas.domain;
 
+import static christmas.exception.ExceptionConstants.BEVERAGE;
+import static christmas.exception.ExceptionConstants.MAX;
+
 import java.util.Map;
 
 import christmas.domain.constants.FoodConstants;
+import christmas.exception.InputException;
 
 public class OrderMenu {
 
@@ -11,22 +15,32 @@ public class OrderMenu {
 
     public OrderMenu(final Map<FoodConstants, Integer> order) {
         validateOrderCount(order);
+        validateBeverage(order);
         this.order = order;
     }
 
     private void validateOrderCount(final Map<FoodConstants, Integer> order) { // TODO: 상수처리 및 예외 별도관리 고민
         int sum = 0;
-        for(int count : order.values()) {
+        for (int count : order.values()) {
             sum += count;
-            if(sum > 20) {
-                throw new IllegalArgumentException("[ERROR] 메뉴는 최대 20개까지만 주문할 수 있습니다.");
+            if (sum > 20) {
+                throw InputException.createException(MAX);
             }
         }
     }
 
+    private void validateBeverage(final Map<FoodConstants, Integer> order) {
+        for (FoodConstants foodConstants : order.keySet()) {
+            if (foodConstants.getCategory() != 3) {
+                return;
+            }
+        }
+        throw InputException.createException(BEVERAGE);
+    }
+
     public int getAmount() {
         int sum = 0;
-        for(FoodConstants foodConstants : order.keySet()) {
+        for (FoodConstants foodConstants : order.keySet()) {
             sum += foodConstants.getAmount() * order.get(foodConstants);
         }
         return sum;
@@ -34,8 +48,8 @@ public class OrderMenu {
 
     public int getCategoryCount(int category) {
         int count = 0;
-        for(FoodConstants foodConstants : order.keySet()) {
-            if(foodConstants.getCategory() == category) {
+        for (FoodConstants foodConstants : order.keySet()) {
+            if (foodConstants.getCategory() == category) {
                 count += order.get(foodConstants);
             }
         }
@@ -44,11 +58,10 @@ public class OrderMenu {
 
     @Override
     public String toString() {
-       StringBuilder orderBuilder = new StringBuilder();
-       order.forEach((foodConstants, count) -> {
-           orderBuilder.append(
-                   String.format(MENU_FORMAT,foodConstants.getFood(),count));
-       });
-       return orderBuilder.toString();
+        StringBuilder orderBuilder = new StringBuilder();
+        order.forEach((foodConstants, count) -> {
+            orderBuilder.append(String.format(MENU_FORMAT, foodConstants.getFood(), count));
+        });
+        return orderBuilder.toString();
     }
 }
