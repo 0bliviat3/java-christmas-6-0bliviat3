@@ -9,7 +9,6 @@ import java.util.Map;
 
 import christmas.domain.constants.FoodConstants;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 public class OrderMenuTest {
