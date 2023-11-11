@@ -26,4 +26,13 @@ public class EventController {
     public void orderAdd(String order) {
         amountService.addOrderMenu(new OrderMenu(validateOrder(order)));
     }
+
+    public void preViewList() {
+        outputView.printPreview();
+        outputView.printMenu();
+        outputView.printModel(amountService.findMenu());
+        outputView.printModel(amountService.findBill());
+        outputView.printBadge();
+        outputView.printModel(amountService.findBadge());
+    }
 }
