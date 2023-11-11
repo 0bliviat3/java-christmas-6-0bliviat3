@@ -20,10 +20,13 @@ public class AmountService {
         this.billBuilder = billBuilder;
     }
 
+    public String findMenu() {
+        return discountCalculator.toString();
+    }
 
     public String findBill() {
         addAmount();
-        return billBuilder.makeBill();
+        return billBuilder.toString();
     }
 
     private void addAmount() {
@@ -42,9 +45,4 @@ public class AmountService {
                 billBuilder.calculateBenefitsAmount()))
                 .getBadge();
     }
-
-
-
-
-
 }
