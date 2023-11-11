@@ -5,13 +5,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class CalculatorTest {
 
-    private final DiscountCalculator discountCalculator = new DiscountCalculator(
-            new Day(3), new OrderMenu(Map.of(STEAK, 1, RIB, 1, CAKE, 2, COKE, 1)));
+    private final DiscountCalculator discountCalculator = new DiscountCalculator();
+
+    @BeforeEach
+    void init() {
+        discountCalculator.setDay(new Day(3));
+        discountCalculator.setOrderMenu(
+                new OrderMenu(Map.of(STEAK, 1, RIB, 1, CAKE, 2, COKE, 1)));
+    }
 
     @DisplayName("크리스마스 디데이 할인 금액을 반환한다.")
     @Test

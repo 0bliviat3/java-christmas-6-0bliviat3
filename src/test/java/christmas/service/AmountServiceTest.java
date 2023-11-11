@@ -19,13 +19,19 @@ public class AmountServiceTest {
     private DiscountCalculator discountCalculator;
     private AmountService amountService;
 
+    void init() {
+
+    }
+
     @DisplayName("예제 데이터2로 입력받았을때 동일한 결과를 반환")
     @Test
     void findBillWhenThird() {
-        discountCalculator = new DiscountCalculator(
-                new Day(3), new OrderMenu(Map.of(STEAK, 1, RIB, 1, CAKE, 2, COKE, 1)));
+        discountCalculator = new DiscountCalculator();
         amountService = new AmountService(
                 amountDTO, discountCalculator, new BillBuilder(amountDTO));
+        discountCalculator.setDay(new Day(3));
+        discountCalculator.setOrderMenu(
+                new OrderMenu(Map.of(STEAK, 1, RIB, 1, CAKE, 2, COKE, 1)));
 
         assertThat(amountService.findBill()).isEqualTo(
                 """
@@ -54,10 +60,11 @@ public class AmountServiceTest {
     @DisplayName("예제 데이터1로 입력받았을때 동일한 결과를 반환")
     @Test
     void findBillWhen26Days() {
-        discountCalculator = new DiscountCalculator(
-                new Day(26), new OrderMenu(Map.of(TAPAS, 1, COKE, 1)));
+        discountCalculator = new DiscountCalculator();
         amountService = new AmountService(
                 amountDTO, discountCalculator, new BillBuilder(amountDTO));
+        discountCalculator.setDay(new Day(26));
+        discountCalculator.setOrderMenu(new OrderMenu(Map.of(TAPAS, 1, COKE, 1)));
 
         assertThat(amountService.findBill()).isEqualTo(
                 """
@@ -83,10 +90,11 @@ public class AmountServiceTest {
     @DisplayName("크리스마스에 디저트만 입력받았을때 결과를 반환")
     @Test
     void findBillWhen25Days() {
-        discountCalculator = new DiscountCalculator(
-                new Day(25), new OrderMenu(Map.of(CAKE, 10, ICE_CREAM, 10)));
+        discountCalculator = new DiscountCalculator();
         amountService = new AmountService(
                 amountDTO, discountCalculator, new BillBuilder(amountDTO));
+        discountCalculator.setDay(new Day(25));
+        discountCalculator.setOrderMenu(new OrderMenu(Map.of(CAKE, 10, ICE_CREAM, 10)));
 
         assertThat(amountService.findBill()).isEqualTo(
                 """
@@ -115,10 +123,11 @@ public class AmountServiceTest {
     @DisplayName("30일에 메인메뉴만 입력받았을때 결과를 반환")
     @Test
     void findBillWhen30Days() {
-        discountCalculator = new DiscountCalculator(
-                new Day(30), new OrderMenu(Map.of(STEAK, 20)));
+        discountCalculator = new DiscountCalculator();
         amountService = new AmountService(
                 amountDTO, discountCalculator, new BillBuilder(amountDTO));
+        discountCalculator.setDay(new Day(30));
+        discountCalculator.setOrderMenu(new OrderMenu(Map.of(STEAK, 20)));
 
         assertThat(amountService.findBill()).isEqualTo(
                 """
