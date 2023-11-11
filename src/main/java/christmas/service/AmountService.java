@@ -3,7 +3,9 @@ package christmas.service;
 import christmas.domain.AmountDTO;
 import christmas.domain.Badge;
 import christmas.domain.BillBuilder;
+import christmas.domain.Day;
 import christmas.domain.DiscountCalculator;
+import christmas.domain.OrderMenu;
 
 public class AmountService {
 
@@ -18,6 +20,14 @@ public class AmountService {
         this.amountDTO = amountDTO;
         this.discountCalculator = discountCalculator;
         this.billBuilder = billBuilder;
+    }
+
+    public void addDay(Day day) {
+        discountCalculator.setDay(day);
+    }
+
+    public void addOrderMenu(OrderMenu orderMenu) {
+        discountCalculator.setOrderMenu(orderMenu);
     }
 
     public String findMenu() {
