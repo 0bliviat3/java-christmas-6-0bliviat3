@@ -24,6 +24,35 @@ public class InputException {
         throw createException(exceptionConstants);
     }
 
+    public static Map<FoodConstants, Integer> validateOrder(String order) {
+        Map<FoodConstants, Integer> orderMenu = new EnumMap<>(FoodConstants.class);
+        StringTokenizer orderToken = new StringTokenizer(order, "-,");
+        validateOrder(orderToken.countTokens());
+        while (orderToken.hasMoreTokens()) {
+            FoodConstants food = FoodConstants.from(orderToken.nextToken());
+            int count = validateOrderCount(orderToken.nextToken());
+            if (orderMenu.containsKey(food)) {
+                throw createException(ORDER);
+            }
+            orderMenu.put(food, count);
+        }
+        return orderMenu;
+    }
+
+    private static int validateOrderCount(String orderCount) {
+        int count = validateNumber(orderCount, ORDER);
+        if (count < 1) {
+            throw createException(ORDER);
+        }
+        return count;
+    }
+
+    private static void validateOrder(int count) {
+        if (count % 2 == 1) {
+            throw createException(ORDER);
+        }
+    }
+
     public static IllegalArgumentException createException(ExceptionConstants exceptionConstants) {
         return new IllegalArgumentException(exceptionConstants.getMessage());
     }
