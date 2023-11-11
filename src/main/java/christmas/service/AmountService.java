@@ -1,6 +1,7 @@
 package christmas.service;
 
 import christmas.domain.AmountDTO;
+import christmas.domain.Badge;
 import christmas.domain.BillBuilder;
 import christmas.domain.DiscountCalculator;
 
@@ -35,6 +36,13 @@ public class AmountService {
         amountDTO.setWeekend(discountCalculator.isWeekend());
         amountDTO.setMinAmount(discountCalculator.isMinAmount());
     }
+
+    public String findBadge() {
+        return new Badge(Math.abs(
+                billBuilder.calculateBenefitsAmount()))
+                .getBadge();
+    }
+
 
 
 
