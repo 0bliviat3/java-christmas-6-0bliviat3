@@ -20,6 +20,17 @@ public class AmountService {
     }
 
 
+    private void addAmount() {
+        amountDTO.setAmount(discountCalculator.calculateBeforeDiscount());
+        amountDTO.setChristmasDiscount(discountCalculator.calculateChristmas());
+        amountDTO.setWeekdayDiscount(discountCalculator.calculateWeekday());
+        amountDTO.setWeekendDiscount(discountCalculator.calculateWeekend());
+        amountDTO.setSpecialDiscount(discountCalculator.calculateSpecial());
+        amountDTO.setGiftDiscount(discountCalculator.calculateGift());
+        amountDTO.setWeekend(discountCalculator.isWeekend());
+        amountDTO.setMinAmount(discountCalculator.isMinAmount());
+    }
+
 
 
 
