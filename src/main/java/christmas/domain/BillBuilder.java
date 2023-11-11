@@ -74,7 +74,7 @@ public class BillBuilder {
         return buildBenefit(amountDTO::getWeekdayDiscount, WEEKDAY.getMessage());
     }
 
-    private int calculateBenefitsAmount() {
+    public int calculateBenefitsAmount() {
         int sum = amountDTO.getChristmasDiscount() +
                 amountDTO.getSpecialDiscount() +
                 amountDTO.getGiftDiscount();
