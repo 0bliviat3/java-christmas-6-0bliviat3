@@ -20,7 +20,8 @@ public class BillBuilder {
         this.amountDTO = amountDTO;
     }
 
-    public String makeBill() {
+    @Override
+    public String toString() {
         StringBuilder bill = new StringBuilder();
         boolean flag = amountDTO.isMinAmount();
         bill.append(buildAmount(amountDTO.getAmount(), BEFORE_DISCOUNT.getMessage()))
