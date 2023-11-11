@@ -12,11 +12,15 @@ public class InputView {
 
     private void validateInput(boolean flag, Runnable runnable) {
         while(flag) {
+
+    private void validateRead(InputConstants inputConstant, Consumer<String> consumer) {
+        boolean hold = true;
+        while (hold) {
             try {
-                runnable.run();
-                flag = false;
-            } catch(IllegalArgumentException e) {
-                e.printStackTrace();
+                consumer.accept(inputEvent(inputConstant));
+                hold = false;
+            } catch (IllegalArgumentException e) {
+                printErrorMessage(e);
             }
         }
     }
