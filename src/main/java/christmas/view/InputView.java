@@ -1,5 +1,11 @@
 package christmas.view;
 
+import static christmas.exception.InputException.printErrorMessage;
+import static christmas.view.InputConstants.*;
+
+import java.util.function.Consumer;
+
+import camp.nextstep.edu.missionutils.Console;
 import christmas.controller.EventController;
 
 public class InputView {
@@ -10,8 +16,10 @@ public class InputView {
         this.eventController = eventController;
     }
 
-    private void validateInput(boolean flag, Runnable runnable) {
-        while(flag) {
+    public void read() {
+        validateRead(HELLO, eventController::dayAdd);
+        validateRead(TAKE_ORDER, eventController::orderAdd);
+    }
 
     private void validateRead(InputConstants inputConstant, Consumer<String> consumer) {
         boolean hold = true;
@@ -25,9 +33,9 @@ public class InputView {
         }
     }
 
-    private void inputEvent(String inputConstant) {
-        System.out.println(inputConstant);
-
+    private String inputEvent(InputConstants inputConstant) {
+        System.out.println(inputConstant.getMessage());
+        return Console.readLine();
     }
 
 }
