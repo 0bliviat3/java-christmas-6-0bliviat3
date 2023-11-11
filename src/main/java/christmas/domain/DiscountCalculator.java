@@ -4,6 +4,7 @@ public class DiscountCalculator {
 
     // TODO: 상수 처리 필요
 
+    private static final String MESSAGE = "<주문 메뉴>\n";
     private final Day day;
     private final OrderMenu orderMenu;
 
@@ -53,4 +54,8 @@ public class DiscountCalculator {
         return 0;
     }
 
+    @Override
+    public String toString() {
+        return String.join(MESSAGE, orderMenu.toString());
+    }
 }
