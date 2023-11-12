@@ -11,8 +11,6 @@ import christmas.domain.constants.FoodConstants;
 
 public class InputException {
 
-    // TODO: 상수 처리 할것
-
     private static final String NUMBER_REGEX = "[0-9]+";
     private static final String SPLIT_DELIMITER = "-,";
     private static final int SINGLE = 1;
