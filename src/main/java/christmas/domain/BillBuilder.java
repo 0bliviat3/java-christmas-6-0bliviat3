@@ -7,28 +7,27 @@ import java.util.function.Supplier;
 
 public class BillBuilder {
 
-    // TODO: 상수처리 필요
-
     private static final String EMPTY = "";
     private static final String CHAMPAGNE = "샴페인 1개\n";
-    private static final String DecimalREGEX = "###,###";
+    private static final String DECIMAL_REGEX = "###,###";
+    private static final int NO_DISCOUNT = 0;
+    private static final int NEGATIVE_CORRECTION = -1;
     private final DecimalFormat amountFormat;
     private final AmountDTO amountDTO;
 
     public BillBuilder(final AmountDTO amountDTO) {
-        amountFormat = new DecimalFormat(DecimalREGEX);
+        amountFormat = new DecimalFormat(DECIMAL_REGEX);
         this.amountDTO = amountDTO;
     }
 
     @Override
     public String toString() {
         StringBuilder bill = new StringBuilder();
-        boolean flag = amountDTO.isMinAmount();
         bill.append(buildAmount(amountDTO.getAmount(), BEFORE_DISCOUNT.getMessage()))
                 .append(GIFT_MENU.getMessage())
-                .append(buildByFlag(this::buildGiftMenu, flag, NONE.getMessage()))
+                .append(buildByIsMin(this::buildGiftMenu, amountDTO.isMinAmount(), NONE.getMessage()))
                 .append(BENEFITS_DETAILS.getMessage())
-                .append(buildByFlag(this::buildBenefits, flag, NONE.getMessage()))
+                .append(buildByIsMin(this::buildBenefits, amountDTO.isMinAmount(), NONE.getMessage()))
                 .append(buildAmount(calculateBenefitsAmount(), BENEFITS_AMOUNT.getMessage()))
                 .append(buildBenefit(this::calculatePay, AFTER_DISCOUNT.getMessage()));
         return bill.toString();
@@ -38,9 +37,9 @@ public class BillBuilder {
         return String.format(constant, amountFormat.format(amount));
     }
 
-    private String buildByFlag(
-            Supplier<String> builder, boolean flag, String noneConstant) {
-        if (flag) {
+    private String buildByIsMin(
+            Supplier<String> builder, boolean isMinAmount, String noneConstant) {
+        if (isMinAmount) {
             return builder.get();
         }
         return noneConstant;
@@ -62,10 +61,10 @@ public class BillBuilder {
     private String buildBenefit(
             Supplier<Integer> calculator, String discountConstant) {
         int calculateResult = calculator.get();
-        if (calculateResult == 0) {
+        if (calculateResult == NO_DISCOUNT) {
             return EMPTY;
         }
-        return String.format(discountConstant, amountFormat.format(calculateResult));
+        return buildAmount(calculateResult, discountConstant);
     }
 
     private String buildWeekBenefit() {
@@ -76,22 +75,30 @@ public class BillBuilder {
     }
 
     public int calculateBenefitsAmount() {
-        int sum = amountDTO.getChristmasDiscount() +
-                amountDTO.getSpecialDiscount() +
-                amountDTO.getGiftDiscount();
-        if(amountDTO.isWeekend()) {
-            return (sum + amountDTO.getWeekendDiscount()) * -1;
+        int sum = sumProcess();
+        if (amountDTO.isWeekend()) {
+            return (sum + amountDTO.getWeekendDiscount()) * NEGATIVE_CORRECTION;
         }
-        return (sum + amountDTO.getWeekdayDiscount()) * -1;
+        return (sum + amountDTO.getWeekdayDiscount()) * NEGATIVE_CORRECTION;
+    }
+
+    private int sumProcess() {
+        return amountDTO.getChristmasDiscount()
+                + amountDTO.getSpecialDiscount()
+                + amountDTO.getGiftDiscount();
     }
 
     private int calculatePay() {
-        int pay = amountDTO.getAmount() -
-                amountDTO.getChristmasDiscount() -
-                amountDTO.getSpecialDiscount();
-        if(amountDTO.isWeekend()) {
+        int pay = payProcess();
+        if (amountDTO.isWeekend()) {
             return pay - amountDTO.getWeekendDiscount();
         }
         return pay - amountDTO.getWeekdayDiscount();
+    }
+
+    private int payProcess() {
+        return amountDTO.getAmount()
+                - amountDTO.getChristmasDiscount()
+                - amountDTO.getSpecialDiscount();
     }
 }
