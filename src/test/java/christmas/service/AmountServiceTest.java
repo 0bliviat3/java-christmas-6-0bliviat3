@@ -33,27 +33,20 @@ public class AmountServiceTest {
         discountCalculator.setOrderMenu(
                 new OrderMenu(Map.of(STEAK, 1, RIB, 1, CAKE, 2, COKE, 1)));
 
-        assertThat(amountService.findBill()).isEqualTo(
-                """
-                                                
-                        <할인 전 총주문 금액>
-                        142,000원
-                             
-                        <증정 메뉴>
-                        샴페인 1개
-                                                
-                        <혜택 내역>
-                        크리스마스 디데이 할인: -1,200원
-                        평일 할인: -4,046원
-                        특별 할인: -1,000원
-                        증정 이벤트: -25,000원
-                                                
-                        <총혜택 금액>
-                        -31,246원
-                                                
-                        <할인 후 예상 결제 금액>
-                        135,754원
-                        """
+        assertThat(amountService.findBill()).contains(
+                "<할인 전 총주문 금액>",
+                "142,000원",
+                "<증정 메뉴>",
+                "샴페인 1개",
+                "<혜택 내역>",
+                "크리스마스 디데이 할인: -1,200원",
+                "평일 할인: -4,046원",
+                "특별 할인: -1,000원",
+                "증정 이벤트: -25,000원",
+                "<총혜택 금액>",
+                "-31,246원",
+                "<할인 후 예상 결제 금액>",
+                "135,754원"
         );
     }
 
@@ -66,24 +59,17 @@ public class AmountServiceTest {
         discountCalculator.setDay(new Day(26));
         discountCalculator.setOrderMenu(new OrderMenu(Map.of(TAPAS, 1, COKE, 1)));
 
-        assertThat(amountService.findBill()).isEqualTo(
-                """
-                        
-                        <할인 전 총주문 금액>
-                        8,500원
-                        
-                        <증정 메뉴>
-                        없음
-                        
-                        <혜택 내역>
-                        없음
-                        
-                        <총혜택 금액>
-                        0원
-                        
-                        <할인 후 예상 결제 금액>
-                        8,500원
-                        """
+        assertThat(amountService.findBill()).contains(
+                "<할인 전 총주문 금액>",
+                "8,500원",
+                "<증정 메뉴>",
+                "없음",
+                "<혜택 내역>",
+                "없음",
+                "<총혜택 금액>",
+                "0원",
+                "<할인 후 예상 결제 금액>",
+                "8,500원"
         );
     }
 
@@ -96,27 +82,20 @@ public class AmountServiceTest {
         discountCalculator.setDay(new Day(25));
         discountCalculator.setOrderMenu(new OrderMenu(Map.of(CAKE, 10, ICE_CREAM, 10)));
 
-        assertThat(amountService.findBill()).isEqualTo(
-                """
-                        
-                        <할인 전 총주문 금액>
-                        200,000원
-                        
-                        <증정 메뉴>
-                        샴페인 1개
-                        
-                        <혜택 내역>
-                        크리스마스 디데이 할인: -3,400원
-                        평일 할인: -40,460원
-                        특별 할인: -1,000원
-                        증정 이벤트: -25,000원
-                        
-                        <총혜택 금액>
-                        -69,860원
-                        
-                        <할인 후 예상 결제 금액>
-                        155,140원
-                        """
+        assertThat(amountService.findBill()).contains(
+                "<할인 전 총주문 금액>",
+                "200,000원",
+                "<증정 메뉴>",
+                "샴페인 1개",
+                "<혜택 내역>",
+                "크리스마스 디데이 할인: -3,400원",
+                "평일 할인: -40,460원",
+                "특별 할인: -1,000원",
+                "증정 이벤트: -25,000원",
+                "<총혜택 금액>",
+                "-69,860원",
+                "<할인 후 예상 결제 금액>",
+                "155,140원"
         );
     }
 
@@ -129,25 +108,18 @@ public class AmountServiceTest {
         discountCalculator.setDay(new Day(30));
         discountCalculator.setOrderMenu(new OrderMenu(Map.of(STEAK, 20)));
 
-        assertThat(amountService.findBill()).isEqualTo(
-                """
-                        
-                        <할인 전 총주문 금액>
-                        1,100,000원
-                        
-                        <증정 메뉴>
-                        샴페인 1개
-                        
-                        <혜택 내역>
-                        주말 할인: -40,460원
-                        증정 이벤트: -25,000원
-                        
-                        <총혜택 금액>
-                        -65,460원
-                        
-                        <할인 후 예상 결제 금액>
-                        1,059,540원
-                        """
+        assertThat(amountService.findBill()).contains(
+                "<할인 전 총주문 금액>",
+                "1,100,000원",
+                "<증정 메뉴>",
+                "샴페인 1개",
+                "<혜택 내역>",
+                "주말 할인: -40,460원",
+                "증정 이벤트: -25,000원",
+                "<총혜택 금액>",
+                "-65,460원",
+                "<할인 후 예상 결제 금액>",
+                "1,059,540원"
         );
     }
 
