@@ -17,7 +17,14 @@ public class InputExceptionTest {
     }
 
     @DisplayName("문제있는 메뉴를 입력하면 예외가 발생한다.")
-    @ValueSource(strings = {"타파스-1,타파스-2", "딤섬-20", "제로콜라-0", "초코케이크--1", "제로콜라,3"})
+    @ValueSource(
+            strings = {"타파스-1,타파스-2",
+            "딤섬-20",
+            "제로콜라-0",
+            "초코케이크--1",
+            "제로콜라,3",
+            "타파스,,1",
+            "초코케이크,-1"})
     @ParameterizedTest
     void inputOrderByProblematic(String order) {
         assertThatThrownBy(() -> InputException.validateOrder(order))
