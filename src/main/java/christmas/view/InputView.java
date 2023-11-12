@@ -10,8 +10,6 @@ import christmas.controller.EventController;
 
 public class InputView {
 
-    // TODO: 변수 네이밍 수정할것
-
     private final EventController eventController;
 
     public InputView(final EventController eventController) {
