@@ -1,5 +1,9 @@
 package christmas.domain.constants;
 
+import static christmas.exception.ExceptionConstants.ORDER;
+
+import christmas.exception.InputException;
+
 public enum FoodConstants {
 
     SOUP("양송이수프", 0, 6000),
@@ -42,11 +46,11 @@ public enum FoodConstants {
     }
 
     public static FoodConstants from(String food) {
-        for(FoodConstants foodConstants : FoodConstants.values()) {
-            if(foodConstants.contains(food)){
+        for (FoodConstants foodConstants : FoodConstants.values()) {
+            if (foodConstants.contains(food)) {
                 return foodConstants;
             }
         }
-        throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        throw InputException.createException(ORDER);
     }
 }
