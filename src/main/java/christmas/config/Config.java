@@ -11,10 +11,16 @@ import christmas.view.OutputView;
 public interface Config {
 
     InputView inputView();
+
     EventController eventController();
+
     AmountService amountService();
+
     OutputView outputView();
+
     AmountDTO amountDTO();
+
     DiscountCalculator discountCalculator();
+
     BillBuilder billBuilder();
 }
