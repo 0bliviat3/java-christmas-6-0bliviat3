@@ -11,6 +11,9 @@ import christmas.exception.InputException;
 public class OrderMenu {
 
     private static final String MENU_FORMAT = "%s %d개\n";
+    private static final int DEFAULT = 0;
+    private static final int MAX_ORDER = 20;
+    private static final int BEVERAGE_NUMBER = 3;
     private final Map<FoodConstants, Integer> order;
 
     public OrderMenu(final Map<FoodConstants, Integer> order) {
@@ -19,11 +22,11 @@ public class OrderMenu {
         this.order = order;
     }
 
-    private void validateOrderCount(final Map<FoodConstants, Integer> order) { // TODO: 상수처리 및 예외 별도관리 고민
-        int sum = 0;
+    private void validateOrderCount(final Map<FoodConstants, Integer> order) {
+        int sum = DEFAULT;
         for (int count : order.values()) {
             sum += count;
-            if (sum > 20) {
+            if (sum > MAX_ORDER) {
                 throw InputException.createException(MAX);
             }
         }
@@ -31,7 +34,7 @@ public class OrderMenu {
 
     private void validateBeverage(final Map<FoodConstants, Integer> order) {
         for (FoodConstants foodConstants : order.keySet()) {
-            if (foodConstants.getCategory() != 3) {
+            if (foodConstants.getCategory() != BEVERAGE_NUMBER) {
                 return;
             }
         }
@@ -39,7 +42,7 @@ public class OrderMenu {
     }
 
     public int getAmount() {
-        int sum = 0;
+        int sum = DEFAULT;
         for (FoodConstants foodConstants : order.keySet()) {
             sum += foodConstants.getAmount() * order.get(foodConstants);
         }
@@ -47,7 +50,7 @@ public class OrderMenu {
     }
 
     public int getCategoryCount(int category) {
-        int count = 0;
+        int count = DEFAULT;
         for (FoodConstants foodConstants : order.keySet()) {
             if (foodConstants.getCategory() == category) {
                 count += order.get(foodConstants);
