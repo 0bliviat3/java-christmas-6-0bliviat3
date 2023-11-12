@@ -1,7 +1,10 @@
 package christmas;
 
+import christmas.config.AppLauncher;
+
 public class Application {
     public static void main(String[] args) {
-        // TODO: 프로그램 구현
+        AppLauncher appLauncher = new AppLauncher();
+        appLauncher.run();
     }
 }
