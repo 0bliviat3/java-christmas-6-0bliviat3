@@ -21,11 +21,11 @@ public class InputView {
         validateRead(TAKE_ORDER, eventController::orderAdd);
     }
 
-    private void validateRead(InputConstants inputConstant, Consumer<String> consumer) {
+    private void validateRead(InputConstants inputConstant, Consumer<String> adder) {
         boolean hold = true;
         while (hold) {
             try {
-                consumer.accept(inputEvent(inputConstant));
+                adder.accept(inputEvent(inputConstant));
                 hold = false;
             } catch (IllegalArgumentException e) {
                 printErrorMessage(e);
