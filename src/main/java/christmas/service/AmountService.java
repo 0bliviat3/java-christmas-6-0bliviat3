@@ -53,6 +53,6 @@ public class AmountService {
     public String findBadge() {
         return new Badge(Math.abs(
                 billBuilder.calculateBenefitsAmount()))
-                .getBadge();
+                .toString();
     }
 }
