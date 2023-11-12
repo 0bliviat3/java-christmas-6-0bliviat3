@@ -19,10 +19,6 @@ public class AmountServiceTest {
     private DiscountCalculator discountCalculator;
     private AmountService amountService;
 
-    void init() {
-
-    }
-
     @DisplayName("예제 데이터2로 입력받았을때 동일한 결과를 반환")
     @Test
     void findBillWhenThird() {
