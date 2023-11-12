@@ -1,10 +1,10 @@
 package christmas.domain;
 
+import static christmas.domain.constants.CalculatorConstants.*;
+import static christmas.domain.constants.FoodConstants.CHAMPAGNE;
+
 public class DiscountCalculator {
 
-    // TODO: 상수 처리 필요
-
-    private static final String MESSAGE = "\n<주문 메뉴>\n";
     private Day day;
     private OrderMenu orderMenu;
 
@@ -21,14 +21,14 @@ public class DiscountCalculator {
     }
 
     public boolean isMinAmount() {
-        return orderMenu.getAmount() >= 10_000;
+        return orderMenu.getAmount() >= MIN_AMOUNT.getNumber();
     }
 
     public int calculateChristmas() {
-        if(day.isChristmas()) {
+        if (day.isChristmas()) {
             return day.getChristmasDiscount();
         }
-        return 0;
+        return NO_DISCOUNT.getNumber();
     }
 
     public boolean isWeekend() {
@@ -36,29 +36,29 @@ public class DiscountCalculator {
     }
 
     public int calculateWeekend() {
-        return orderMenu.getCategoryCount(1) * 2023;
+        return orderMenu.getCategoryCount(MAIN.getNumber()) * YEAR.getNumber();
     }
 
     public int calculateWeekday() {
-        return orderMenu.getCategoryCount(2) * 2023;
+        return orderMenu.getCategoryCount(DESSERT.getNumber()) * YEAR.getNumber();
     }
 
     public int calculateSpecial() {
-        if(day.isSpecialDay()) {
-            return 1000;
+        if (day.isSpecialDay()) {
+            return SPECIAL.getNumber();
         }
-        return 0;
+        return NO_DISCOUNT.getNumber();
     }
 
     public int calculateGift() {
-        if(orderMenu.getAmount() >= 120_000) {
-            return 25_000;
+        if (orderMenu.getAmount() >= GIFT_MIN_AMOUNT.getNumber()) {
+            return  CHAMPAGNE.getAmount();
         }
-        return 0;
+        return NO_DISCOUNT.getNumber();
     }
 
     @Override
     public String toString() {
-        return String.join(MESSAGE, orderMenu.toString());
+        return orderMenu.toString();
     }
 }
