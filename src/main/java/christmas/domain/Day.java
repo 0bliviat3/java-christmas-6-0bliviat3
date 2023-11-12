@@ -1,10 +1,13 @@
 package christmas.domain;
 
+import static christmas.domain.constants.DayConstants.*;
+import static christmas.exception.ExceptionConstants.DATE;
+
+import christmas.exception.InputException;
+
 public class Day {
 
     private final int day;
-
-    // TODO: 상수처리 할것
 
     public Day(final int day) {
         validateDay(day);
@@ -12,26 +15,26 @@ public class Day {
     }
 
     private void validateDay(final int day) {
-        if(day > 31 || day < 1) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+        if (day > LAST.getNumber() || day < FIRST.getNumber()) {
+            throw InputException.createException(DATE);
         }
     }
 
     public boolean isChristmas() {
-        return day <= 25;
+        return day <= CHRISTMAS.getNumber();
     }
 
     public int getChristmasDiscount() {
-        return 1000 + (day - 1) * 100;
+        return THOUSAND.getNumber() + (day - FIRST.getNumber()) * HUNDRED.getNumber();
     }
 
     private int modDay() {
-        return day % 7;
+        return day % WEEK.getNumber();
     }
 
     public boolean isWeekend() {
-        for(int i = 1; i < 3; i++) {
-            if(modDay() == i) {
+        for (int i = FIRST.getNumber(); i < START_WEEKDAY.getNumber(); i++) {
+            if (modDay() == i) {
                 return true;
             }
         }
@@ -39,7 +42,7 @@ public class Day {
     }
 
     public boolean isSpecialDay() {
-        return modDay() == 3 || day == 25;
+        return modDay() == START_WEEKDAY.getNumber() || day == CHRISTMAS.getNumber();
     }
 
 }
