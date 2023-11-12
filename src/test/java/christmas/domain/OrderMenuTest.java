@@ -30,6 +30,13 @@ public class OrderMenuTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
+    @DisplayName("음료만 주문하면 예외가 발생한다.")
+    @Test
+    void createOrderByOnlyBeverage() {
+        assertThatThrownBy(() -> new OrderMenu(Map.of(COKE, 10, CHAMPAGNE, 5)))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
     @DisplayName("주문에 따른 주문총액을 반환한다.")
     @Test
     void createOrderAmount() {
