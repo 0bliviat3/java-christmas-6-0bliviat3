@@ -12,7 +12,7 @@ public class BadgeTest {
     @CsvSource(value = {"20000:산타", "10000:트리", "5000:별", "1000:없음"}, delimiter = ':')
     @ParameterizedTest
     void createBadge(int benefitAmount, String badgeConst) {
-        assertThat(new Badge(benefitAmount).getBadge())
+        assertThat(new Badge(benefitAmount).toString())
                 .contains(badgeConst);
     }
 
