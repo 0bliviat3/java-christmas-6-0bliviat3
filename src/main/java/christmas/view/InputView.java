@@ -1,12 +1,13 @@
 package christmas.view;
 
 import static christmas.exception.InputException.printErrorMessage;
-import static christmas.view.InputConstants.*;
+import static christmas.view.constants.InputConstants.*;
 
 import java.util.function.Consumer;
 
 import camp.nextstep.edu.missionutils.Console;
 import christmas.controller.EventController;
+import christmas.view.constants.InputConstants;
 
 public class InputView {
 

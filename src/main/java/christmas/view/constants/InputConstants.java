@@ -1,4 +1,4 @@
-package christmas.view;
+package christmas.view.constants;
 
 public enum InputConstants {
 
