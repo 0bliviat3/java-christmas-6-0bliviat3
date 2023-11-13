@@ -20,7 +20,19 @@ public class FoodConstantsTest {
     }
 
     @DisplayName("존재하는 음식명을 찾는다면 enum 객체 리턴")
-    @ValueSource(strings = {"샴페인", "아이스크림", "티본스테이크", "타파스"})
+    @ValueSource(
+            strings = {"샴페인",
+                    "아이스크림",
+                    "티본스테이크",
+                    "타파스",
+                    "양송이수프",
+                    "시저샐러드",
+                    "바비큐립",
+                    "해산물파스타",
+                    "크리스마스파스타",
+                    "초코케이크",
+                    "제로콜라",
+                    "레드와인"})
     @ParameterizedTest
     void giveTrueFood(String food) {
         assertThat(FoodConstants.from(food))
