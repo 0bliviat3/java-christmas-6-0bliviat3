@@ -6,8 +6,8 @@ public class AppLauncher {
 
     private final AppConfig appConfig;
 
-    public AppLauncher() {
-        appConfig = AppConfig.getInstance();
+    public AppLauncher(final AppConfig appConfig) {
+        this.appConfig = appConfig;
     }
 
     public void run() {
