@@ -23,7 +23,7 @@ public enum FoodConstants {
     private final int category;
     private final int amount;
 
-    private FoodConstants(String food, int category, int amount) {
+    private FoodConstants(final String food, final int category, final int amount) {
         this.food = food;
         this.category = category;
         this.amount = amount;

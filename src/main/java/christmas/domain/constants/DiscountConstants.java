@@ -16,7 +16,7 @@ public enum DiscountConstants {
 
     private final String message;
 
-    private DiscountConstants(String message) {
+    private DiscountConstants(final String message) {
         this.message = message;
     }
 
