@@ -1,6 +1,6 @@
 package christmas.domain;
 
-import static christmas.domain.constants.BadgeConstants.*;
+import static christmas.exception.ExceptionConstants.ORDER;
 
 import christmas.domain.constants.BadgeConstants;
 
@@ -18,6 +18,6 @@ public class Badge {
                 return badgeConstants.getBadge();
             }
         }
-        return NONE.getBadge();
+        throw new IllegalArgumentException(ORDER.getMessage());
     }
 }
