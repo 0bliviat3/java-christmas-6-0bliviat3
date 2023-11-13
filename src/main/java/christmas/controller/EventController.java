@@ -1,8 +1,7 @@
 package christmas.controller;
 
 import static christmas.exception.ExceptionConstants.DATE;
-import static christmas.exception.InputException.validateNumber;
-import static christmas.exception.InputException.validateOrder;
+import static christmas.exception.InputException.*;
 
 import christmas.domain.Day;
 import christmas.domain.OrderMenu;
