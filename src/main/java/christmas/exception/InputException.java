@@ -17,6 +17,7 @@ public class InputException {
     private static final int FOOD_INDEX = 0;
     private static final int COUNT = 1;
     private static final int PAIR = 2;
+    private static final int SPLIT_LIMIT = -1;
     private static final Pattern regex = Pattern.compile(NUMBER_REGEX);
 
     private InputException() {
@@ -31,7 +32,7 @@ public class InputException {
 
     public static Map<FoodConstants, Integer> validateOrder(String order) {
         Map<FoodConstants, Integer> orderMenu = new EnumMap<>(FoodConstants.class);
-        List<String> orderList = List.of(order.split(COMAS));
+        List<String> orderList = List.of(order.split(COMAS, SPLIT_LIMIT));
         for (String orderPiece : orderList) {
             List<String> orderOne = validateOrderDivision(orderPiece);
             FoodConstants food = FoodConstants.from(orderOne.get(FOOD_INDEX));
@@ -45,7 +46,7 @@ public class InputException {
     }
 
     private static List<String> validateOrderDivision(String orderPiece) {
-        List<String> order = List.of(orderPiece.split(BAR));
+        List<String> order = List.of(orderPiece.split(BAR, SPLIT_LIMIT));
         if(order.size() != PAIR) {
             throw createException(ORDER);
         }
