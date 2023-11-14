@@ -25,7 +25,7 @@ public class BillBuilder {
         StringBuilder bill = new StringBuilder();
         bill.append(buildAmount(amountDTO.getAmount(), BEFORE_DISCOUNT.getMessage()))
                 .append(GIFT_MENU.getMessage())
-                .append(buildByIsMin(this::buildGiftMenu, amountDTO.isMinAmount(), NONE.getMessage()))
+                .append(buildByIsMin(this::buildGiftMenu, hasGift(), NONE.getMessage()))
                 .append(BENEFITS_DETAILS.getMessage())
                 .append(buildByIsMin(this::buildBenefits, amountDTO.isMinAmount(), NONE.getMessage()))
                 .append(buildAmount(calculateBenefitsAmount(), BENEFITS_AMOUNT.getMessage()))
@@ -35,6 +35,10 @@ public class BillBuilder {
 
     private String buildAmount(int amount, String constant) {
         return String.format(constant, amountFormat.format(amount));
+    }
+
+    private boolean hasGift() {
+        return amountDTO.getGiftDiscount() != NO_DISCOUNT;
     }
 
     private String buildByIsMin(
