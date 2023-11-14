@@ -24,7 +24,8 @@ public class InputExceptionTest {
             "초코케이크--1",
             "제로콜라,3",
             "타파스,,1",
-            "초코케이크,-1"})
+            "초코케이크,-1",
+            "해산물파스타-1,,"})
     @ParameterizedTest
     void inputOrderByProblematic(String order) {
         assertThatThrownBy(() -> InputException.validateOrder(order))
