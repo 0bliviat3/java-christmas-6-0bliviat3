@@ -18,8 +18,9 @@ public class InputView {
     }
 
     public void read() {
-        validateRead(HELLO, eventController::dayAdd);
-        validateRead(TAKE_ORDER, eventController::orderAdd);
+        System.out.println(HELLO.getMessage());
+        validateRead(INIT_DAY, eventController::dayAdd);
+        validateRead(INIT_ORDER, eventController::orderAdd);
     }
 
     private void validateRead(InputConstants inputConstant, Consumer<String> adder) {
