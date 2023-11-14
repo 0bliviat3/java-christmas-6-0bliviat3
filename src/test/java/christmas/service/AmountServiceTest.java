@@ -119,4 +119,27 @@ public class AmountServiceTest {
         );
     }
 
+    @DisplayName("1일에 디저트만 입력받았을때 결과를 반환")
+    @Test
+    void findBillWhenFirst() {
+        discountCalculator = new DiscountCalculator();
+        amountService = new AmountService(
+                amountDTO, discountCalculator, new BillBuilder(amountDTO));
+        discountCalculator.setDay(new Day(1));
+        discountCalculator.setOrderMenu(new OrderMenu(Map.of(CAKE, 2)));
+
+        assertThat(amountService.findBill()).contains(
+                "<할인 전 총주문 금액>",
+                "30,000원",
+                "<증정 메뉴>",
+                "없음",
+                "<혜택 내역>",
+                "크리스마스 디데이 할인: -1,000원",
+                "<총혜택 금액>",
+                "-1,000원",
+                "<할인 후 예상 결제 금액>",
+                "29,000원"
+        );
+    }
+
 }
